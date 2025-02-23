@@ -1,0 +1,9 @@
+@use "../../scss/base";
+
+.button-container__button_create {
+  @include base.button-size-color-slyle(
+    $width: 125px,
+    $color: base.$button-create-save-background-color
+  );
+  @include base.fontstyle($weight: bold, $size: 18px, $fontcolor: #000000);
+}

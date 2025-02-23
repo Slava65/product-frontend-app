@@ -1,0 +1,44 @@
+@use "../../scss/base";
+
+%margin-block {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+.title-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 52px;
+  align-items: center;
+}
+
+.title-container__title {
+  width: 427px;
+  height: 31px;
+  margin: 0;
+  @include base.fontstyle(
+    $weight: bold,
+    $size: 24px,
+    $lineheight: base.$title-table-line-height
+  );
+}
+
+.title-container__create-button {
+  width: 278px;
+  height: 48px;
+  background-color: base.$button-create-save-background-color;
+  @include base.fontstyle($weight: bold, $size: 18px);
+  @include base.button-border-style();
+}
+
+.product-list-table {
+  @extend %margin-block;
+  margin-top: 30px;
+  padding-inline-start: 0;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(1, auto);
+  grid-template-rows: repeat(2, auto);
+}
+

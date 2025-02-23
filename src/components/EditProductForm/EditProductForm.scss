@@ -1,0 +1,43 @@
+@use "../../scss/base";
+
+.button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 54px;
+}
+
+.button-container__button {
+  @include base.button-border-style();
+  margin-right: 24px;
+  padding-block: 0;
+  padding-inline: 0;
+}
+
+.button-container__button:last-of-type {
+  margin-right: 0;
+}
+
+.button-container__button_delete {
+  @include base.button-size-color-slyle(
+    128px,
+    base.$button-delete-background-color
+  );
+  @include base.fontstyle($weight: bold, $size: 18px, $fontcolor: #ffffff);
+}
+
+.button-container__button_cancel {
+  @include base.button-size-color-slyle(
+    122px,
+    base.$button-cancel-background-color
+  );
+  @include base.fontstyle($weight: bold, $size: 18px, $fontcolor: #ffffff);
+}
+
+.button-container__button_save {
+  @include base.button-size-color-slyle(
+    150px,
+    base.$button-create-save-background-color
+  );
+  @include base.fontstyle($weight: bold, $size: 18px, $fontcolor: #000000);
+}
