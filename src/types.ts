@@ -1,5 +1,3 @@
-import { MouseEventHandler } from "react";
-
 export interface IProductType extends Record<string, any> {
   id: string;
   packsNumber: number;
@@ -21,9 +19,9 @@ export interface ITableRowProps {
   isHeader: boolean;
   type: IProductType;
   index: number;
-  onOpenEditForm: MouseEventHandler;
-  onDeleteProductType: Function;
+  onOpenEditForm: Function;
   onInfoToolTipOpen: Function;
+  onDeleteToolTipOpen: Function;
 }
 
 

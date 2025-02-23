@@ -8,17 +8,20 @@ function ProductType({
   type,
   index,
   onOpenEditForm,
-  onDeleteProductType,
-  onInfoToolTipOpen
+  onInfoToolTipOpen,
+  onDeleteToolTipOpen
 }: ITableRowProps) {
-  function handleDeleteProductTypeClick() {
-    onDeleteProductType(id);
-  }
 
   function handleOpenClickInfoToolTip() {
     onInfoToolTipOpen(type)
   }
+  function handleOpenClickDeleteToolTip() {
+    onDeleteToolTipOpen(type)
+  }
 
+  function handleOpenClickEditForm() {
+    onOpenEditForm(type)
+  }
   const { id, packsNumber, packageType, isArchived, createdAt } = type;
 
   return (
@@ -90,12 +93,12 @@ function ProductType({
       >
         {!isHeader && (
           <>
-            <a className="product-list__button" onClick={onOpenEditForm}>
+            <a className="product-list__button" onClick={handleOpenClickEditForm}>
               <img src={pen_icon} />
             </a>
             <a
               className="product-list__button"
-              onClick={handleDeleteProductTypeClick}
+              onClick={handleOpenClickDeleteToolTip}
             >
               <img src={trash_icon} />
             </a>

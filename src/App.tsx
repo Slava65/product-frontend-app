@@ -5,17 +5,25 @@ import CreateProductForm from "./components/CreateProductForm/CreateProductForm"
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { api } from "./api/api";
 import { useAppDispatch } from "./hooks";
-import { addProductType, removeProductType } from "./redux/productTypesSlice";
+import {
+  addProductType,
+  removeProductType,
+  editProductType,
+} from "./redux/productTypesSlice";
 import { IProductType } from "./types";
 import InfoToolTip from "./components/InfoToolTip/InfoToolTip";
+import DeleteToolTip from "./components/DeleteToolTip/DeleteToolTip";
 function App() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [isInfoToolTipOpened, setIsInfoToolTipOpened] =
     useState<boolean>(false);
+  const [isDeleteToolTipOpened, setIsDeleteToolTipOpened] =
+    useState<boolean>(false);
   const [selectedProductType, setSelectedProductType] =
     useState<IProductType | null>(null);
-  function handleOpenEditForm() {
+  function handleOpenEditForm(type: IProductType) {
+    setSelectedProductType(type);
     navigate("editproducttype");
   }
 
@@ -23,23 +31,49 @@ function App() {
     navigate("createproducttype");
   }
 
-  function handleCreateProductType(type: IProductType) {
-    console.log("6");
-    api.createProductType(type);
-    dispatch(addProductType(type));
+  async function handleCreateProductType(type: IProductType) {
+    try {
+      const res = await api.createProductType(type);
+      dispatch(addProductType(res.data));
+    } catch (err) {
+      console.log(err);
+    }
+    handleCloseForms();
+  }
+
+  function handleEditProductType(type: IProductType) {
+    console.log(type);
+    api
+      .editProductType(type)
+      .then((res) => {
+        dispatch(editProductType(res.data));
+      })
+      .catch((err) => console.log(err));
+    handleCloseForms();
   }
 
   function handleDeleteProductType(type: IProductType) {
-    api.deleteProductType(type.id);
-    dispatch(removeProductType(type));
+    api
+      .deleteProductType(type.id)
+      .then(() => {
+        dispatch(removeProductType(type));
+      })
+      .catch((err) => console.log(err));
+    handleCloseForms();
   }
 
   function handleCloseForms() {
     setIsInfoToolTipOpened(false);
+    setIsDeleteToolTipOpened(false);
     navigate("/");
   }
   function handleOpenInfoToolTip(selectedType: IProductType) {
     setIsInfoToolTipOpened(true);
+    setSelectedProductType(selectedType);
+  }
+
+  function handleOpenDeleteToolTip(selectedType: IProductType) {
+    setIsDeleteToolTipOpened(true);
     setSelectedProductType(selectedType);
   }
 
@@ -52,9 +86,9 @@ function App() {
             <ProductList
               onOpenEditForm={handleOpenEditForm}
               onOpenCreateForm={handleOpenCreateForm}
-              onDeleteProductType={handleDeleteProductType}
               onCloseForms={handleCloseForms}
               onInfoToolTipOpen={handleOpenInfoToolTip}
+              onDeleteToolTipOpen={handleOpenDeleteToolTip}
             />
           }
         ></Route>
@@ -63,7 +97,10 @@ function App() {
           element={
             <EditProductForm
               title={"Редактирование типа продукции"}
+              onEditProductType={handleEditProductType}
               onCloseForms={handleCloseForms}
+              onDeleteProductType={handleDeleteProductType}
+              selectedType={selectedProductType}
             />
           }
         ></Route>
@@ -81,6 +118,12 @@ function App() {
       <InfoToolTip
         isInfoToolTipOpened={isInfoToolTipOpened}
         onCloseInfoToolTip={handleCloseForms}
+        selectedType={selectedProductType}
+      />
+      <DeleteToolTip
+        onDeleteProductType={handleDeleteProductType}
+        isDeleteToolTipOpened={isDeleteToolTipOpened}
+        onCloseDeleteToolTip={handleCloseForms}
         selectedType={selectedProductType}
       />
     </div>

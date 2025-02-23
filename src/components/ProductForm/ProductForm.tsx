@@ -17,10 +17,10 @@ function ProductForm({
         </label>
         <input
           id="packsNumber"
- 
-          className="input-container__field input-container__field_numberPacks"
           name="packsNumber"
-          onChange={(e) => setValue("packsNumber", e.target.value)}
+          className="input-container__field input-container__field_numberPacks"
+          
+          onChange={(e) => setValue("packsNumber", Number(e.target.value))}
         />
       </div>
       <div className="input-container">
@@ -29,6 +29,7 @@ function ProductForm({
         </label>
         <select
           id="packageType"
+          name="packageType"
           onChange={(e) => setValue("packageType", e.target.value)}
           className="input-container__field"
         >
@@ -42,8 +43,9 @@ function ProductForm({
         </label>
         <input
           id="isArchived"
+          name="isArchived"
           type="checkbox"
-          onChange={(e) => setValue("isArchived", e.target.value)}
+          onChange={(e) => setValue("isArchived", e.target.checked)}
           className="input-container__check-box"
         ></input>
       </div>
@@ -56,6 +58,7 @@ function ProductForm({
         </label>
         <textarea
           id="description"
+          name="description"
           onChange={(e) => setValue("description", e.target.value)}
           className="input-container__field input-container__field_description"
         ></textarea>

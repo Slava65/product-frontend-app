@@ -33,19 +33,17 @@ class Api {
     description,
   }: IProductType) {
     return apiInstance
-      .post(`/productTypes`, {
-        body: JSON.stringify({
-          packsNumber,
-          packageType,
-          isArchived,
-          description,
-        }),
+      .post<IProductType>("/productTypes", {
+        packsNumber,
+        packageType,
+        isArchived,
+        description,
       })
       .then(this._handleResult);
   }
 
   deleteProductType(id: string) {
-    return apiInstance.delete(`/cards/${id}`).then(this._handleResult);
+    return apiInstance.delete(`/productTypes/${id}`).then(this._handleResult);
   }
 
   editProductType({
@@ -56,13 +54,11 @@ class Api {
     description,
   }: IProductType) {
     return apiInstance
-      .patch(`/productTypes/${id}`, {
-        body: JSON.stringify({
-          packsNumber,
-          packageType,
-          isArchived,
-          description,
-        }),
+      .patch<IProductType>(`/productTypes/${id}`, {
+        packsNumber,
+        packageType,
+        isArchived,
+        description,
       })
       .then(this._handleResult);
   }
@@ -76,7 +72,7 @@ const apiInstance = axios.create({
 
 apiInstance.interceptors.response.use(
   function (response) {
-    if (response.data[0].createdAt) {
+    if (response.data[0]?.createdAt) {
       response.data.sort((a: IProductType, b: IProductType) => {
         return b.createdAt < a.createdAt
           ? -1

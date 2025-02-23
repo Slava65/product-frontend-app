@@ -1,4 +1,4 @@
-import { EventHandler, MouseEventHandler, useEffect, useState } from "react";
+import { MouseEventHandler, useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../hooks";
 import { selectProductTypes } from "../../redux/productTypesSlice";
 
@@ -7,18 +7,18 @@ import { fetchProductTypes } from "../../redux/productTypesSlice";
 import ProductType from "../ProductType/ProductType";
 
 interface IProps {
-  onOpenEditForm: MouseEventHandler;
+  onOpenEditForm: Function;
   onOpenCreateForm: MouseEventHandler;
-  onDeleteProductType: Function;
   onCloseForms: MouseEventHandler;
   onInfoToolTipOpen: Function;
+  onDeleteToolTipOpen: Function;
 }
 
 function ProductList({
   onOpenEditForm,
   onOpenCreateForm,
-  onDeleteProductType,
-  onInfoToolTipOpen
+  onInfoToolTipOpen,
+  onDeleteToolTipOpen
 }: IProps) {
   const dispatch = useAppDispatch();
   const currentProductTypes = useAppSelector(selectProductTypes);
@@ -54,8 +54,8 @@ function ProductList({
           }}
           index={0}
           onOpenEditForm={onOpenEditForm}
-          onDeleteProductType={onDeleteProductType}
           onInfoToolTipOpen={onInfoToolTipOpen}
+          onDeleteToolTipOpen={onDeleteToolTipOpen}
         />
         {(currentProductTypes as unknown as IProductType).map(
           (type: IProductType, index: number) => (
@@ -65,8 +65,8 @@ function ProductList({
               type={type}
               index={index}
               onOpenEditForm={onOpenEditForm}
-              onDeleteProductType={onDeleteProductType}
               onInfoToolTipOpen={onInfoToolTipOpen}
+              onDeleteToolTipOpen={onDeleteToolTipOpen}
             />
           )
         )}

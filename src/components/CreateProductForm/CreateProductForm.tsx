@@ -13,28 +13,36 @@ interface ICreateProductFormProps {
 function CreateProductForm({
   title,
   onAddProductType,
-  onCloseForms
+  onCloseForms,
 }: ICreateProductFormProps) {
-  const { register, handleSubmit, setValue, setError } = useForm<IProductType>(
-    
-  );
+  const { register, handleSubmit, setValue } = useForm<IProductType>({
+    defaultValues: {
+      packsNumber: 0,
+      packageType: "компрессия",
+      isArchived: false,
+      description: "",
+    },
+  });
 
   useEffect(() => {
     register("packsNumber", { required: true });
-    register("packageType", { required: true });
-    register("isArchived", { required: true });
+    register("packageType");
+    register("isArchived");
     register("description", { required: true });
   });
 
-  function submitHandler(data: IProductType) {
-    console.log("7");
+  function HandleAddProductForm(data: IProductType) {
+    
     onAddProductType(data);
   }
   return (
-    <form onSubmit={handleSubmit(submitHandler)}>
+    <form onSubmit={handleSubmit(HandleAddProductForm)}>
       <ProductForm title={title} setValue={setValue}>
         <div className="button-container">
-          <button className="button-container__button button-container__button_cancel" onClick={onCloseForms}>
+          <button
+            className="button-container__button button-container__button_cancel"
+            onClick={onCloseForms}
+          >
             Отмена
           </button>
           <button

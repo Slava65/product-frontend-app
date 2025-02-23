@@ -41,7 +41,7 @@ export const productTypesSlice = createSlice({
     },
     removeProductType: (state, action: PayloadAction<IProductType>) => {
       state.productTypes = (state.productTypes as IProductType[]).filter(
-        (type) => type.id === action.payload.id
+        (type) => type.id !== action.payload.id
       );
     },
   },
