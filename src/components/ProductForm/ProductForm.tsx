@@ -7,6 +7,7 @@ function ProductForm({
   title,
   setValue,
 }: React.PropsWithChildren<IProductFormProps>) {
+  
   return (
     <div className="edit-form">
       <h2 className="form-title">{title}</h2>

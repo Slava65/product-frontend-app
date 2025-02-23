@@ -23,7 +23,7 @@ export interface ITableRowProps {
   index: number;
   onOpenEditForm: MouseEventHandler;
   onDeleteProductType: Function;
-  onInfoToolTipOpened: MouseEventHandler;
+  onInfoToolTipOpen: Function;
 }
 
 

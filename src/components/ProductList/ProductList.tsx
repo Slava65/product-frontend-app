@@ -11,14 +11,14 @@ interface IProps {
   onOpenCreateForm: MouseEventHandler;
   onDeleteProductType: Function;
   onCloseForms: MouseEventHandler;
-  onInfoToolTipOpened: MouseEventHandler;
+  onInfoToolTipOpen: Function;
 }
 
 function ProductList({
   onOpenEditForm,
   onOpenCreateForm,
   onDeleteProductType,
-  onInfoToolTipOpened
+  onInfoToolTipOpen
 }: IProps) {
   const dispatch = useAppDispatch();
   const currentProductTypes = useAppSelector(selectProductTypes);
@@ -26,6 +26,8 @@ function ProductList({
   useEffect(() => {
     dispatch(fetchProductTypes());
   }, []);
+
+
 
   return (
     <>
@@ -53,7 +55,7 @@ function ProductList({
           index={0}
           onOpenEditForm={onOpenEditForm}
           onDeleteProductType={onDeleteProductType}
-          onInfoToolTipOpened={onInfoToolTipOpened}
+          onInfoToolTipOpen={onInfoToolTipOpen}
         />
         {(currentProductTypes as unknown as IProductType).map(
           (type: IProductType, index: number) => (
@@ -64,7 +66,7 @@ function ProductList({
               index={index}
               onOpenEditForm={onOpenEditForm}
               onDeleteProductType={onDeleteProductType}
-              onInfoToolTipOpened={onInfoToolTipOpened}
+              onInfoToolTipOpen={onInfoToolTipOpen}
             />
           )
         )}
@@ -74,31 +76,3 @@ function ProductList({
 }
 
 export default ProductList;
-
-{
-  /* <li className="product-list__row product-list__row_header">
-<div className="product-list__cell-container product-list__cell-container_header">
-  <p className="product-list__cell product-list__cell_first-header">
-    &#8470;
-  </p>
-</div>
-<div className="product-list__cell-container product-list__cell-container_header">
-  <p className="product-list__cell">Кол-во пачек</p>
-</div>
-<div className="product-list__cell-container product-list__cell-container_header">
-  <p className="product-list__cell">Тип упаковки</p>
-</div>
-<div className="product-list__cell-container product-list__cell-container_header">
-  <p className="product-list__cell">Дата создания</p>
-</div>
-<div className="product-list__cell-container product-list__cell-container_header">
-  <p className="product-list__cell">Статус</p>
-</div>
-<div className="product-list__cell-container product-list__cell-container_header">
-  <p className="product-list__cell"></p>
-</div>
-<div className="product-list__cell-container product-list__cell-container_header">
-  <p className="product-list__cell product-list__cell_last-header"></p>
-</div>
-</li> */
-}
