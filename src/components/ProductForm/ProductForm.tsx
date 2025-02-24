@@ -2,25 +2,23 @@ import { IProductType } from "../../types";
 import { FieldErrors } from "react-hook-form";
 interface IProductFormProps {
   title: string;
-  setValue: Function;
-  isEdit: boolean;
-  selectedType: IProductType | null;
-  watch: Function;
   errors: FieldErrors<IProductType>;
+  register: Function;
 }
 function ProductForm({
   children,
   title,
-  setValue,
-  isEdit,
-  selectedType,
-  watch,
   errors,
+  register,
 }: React.PropsWithChildren<IProductFormProps>) {
   return (
     <div className="edit-form">
       <h2 className="form-title">{title}</h2>
-      <div className="input-container">
+      <div
+        className={`input-container ${
+          errors.packsNumber && "input-container_error"
+        }`}
+      >
         <label htmlFor="packsNumber" className="input-container__name">
           Кол-во пачек <span className="input-container__asterisk">*</span>
         </label>
@@ -29,22 +27,27 @@ function ProductForm({
             type="number"
             name="packsNumber"
             className="input-container__field input-container__field_numberPacks"
-            onChange={(e) => setValue("packsNumber", Number(e.target.value))}
+            {...register("packsNumber", {
+              required: { value: true, message: "Обязательное поле" },
+              min: { value: 0, message: "Минимальное значение равно 0" },
+              max: {
+                value: 1000000,
+                message: "Максимальное значение равно 1000000",
+              },
+            })}
           />
-          {errors.packsNumber && (
-            <p className="input-container__error">
-              {errors.packsNumber.message}
-            </p>
-          )}
         </div>
       </div>
+      {errors.packsNumber && (
+        <p className="input-container__error">{errors.packsNumber.message}</p>
+      )}
       <div className="input-container">
         <label htmlFor="packageType" className="input-container__name">
           Тип упаковки <span className="input-container__asterisk">*</span>
         </label>
         <select
           name="packageType"
-          onChange={(e) => setValue("packageType", e.target.value)}
+          {...register("packageType")}
           className="input-container__field"
         >
           <option value="компрессия">компрессия</option>
@@ -58,11 +61,15 @@ function ProductForm({
         <input
           name="isArchived"
           type="checkbox"
-          onChange={(e) => setValue("isArchived", e.target.checked)}
+          {...register("isArchived")}
           className="input-container__check-box"
         ></input>
       </div>
-      <div className="input-container">
+      <div
+        className={`input-container ${
+          errors.description && "input-container_error"
+        }`}
+      >
         <label
           htmlFor="description"
           className="input-container__name input-container__name_description"
@@ -72,10 +79,20 @@ function ProductForm({
         <div>
           <textarea
             name="description"
-            onChange={(e) => setValue("description", e.target.value)}
+            {...register("description", {
+              maxLength: {
+                value: 300,
+                message:
+                  "Превышена длина поля, максимальное значение 300 символов",
+              },
+            })}
             className="input-container__field input-container__field_description"
           ></textarea>
-          {errors.description && <p className="input-container__error">{errors.description.message}</p>}
+          {errors.description && (
+            <p className="input-container__error input-container__error_description">
+              {errors.description.message}
+            </p>
+          )}
         </div>
       </div>
       {children}

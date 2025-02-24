@@ -27,14 +27,27 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 28px;
+  @include base.fontstyle($weight: normal, $size: 18px);
+}
+
+.input-container:nth-of-type(4) {
+  margin-bottom: 54px;
+}
+
+.input-container_error:nth-of-type(4) {
+  margin-bottom: 39px;
+}
+
+.input-container_error:first-of-type {
+  margin-bottom: 0;
+}
+
+.input-container_error:nth-of-type(5) {
+  margin-bottom: 0;
 }
 
 .input-container_check-box {
   display: block;
-}
-
-.input-container {
-  @include base.fontstyle($weight: normal, $size: 18px);
 }
 
 .input-container__name_description {
@@ -88,7 +101,13 @@
 }
 
 .input-container__error {
+  margin: 0;
+  margin-bottom: 13px;
+  margin-left: 190px;
+  width: 500px;
+  @include base.fontstyle($weight: normal, $size: 12px, $fontcolor: #da1515);
+}
+
+.input-container__error_description {
   margin: 0 auto;
-  width: 300px;
-  @include base.fontstyle($weight: normal, $size: 10px, $fontcolor: #da1515);
 }

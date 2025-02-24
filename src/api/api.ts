@@ -8,8 +8,8 @@ class Api {
   }
 
   _handleResult = (res: AxiosResponse) => {
-    if (res.status !== 200) {
-      return Promise.reject(res);
+    if (res.status !== 200 && res.status !== 201) {
+      return Promise.reject(`Error: ${res.status}`);
     }
     return res;
   };

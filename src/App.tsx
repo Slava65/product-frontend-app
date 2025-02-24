@@ -98,8 +98,8 @@ function App() {
               title={"Редактирование типа продукции"}
               onEditProductType={handleEditProductType}
               onCloseForms={handleCloseForms}
-              onDeleteProductType={handleDeleteProductType}
               selectedType={selectedProductType}
+              onDeleteToolTipOpen={handleOpenDeleteToolTip}
             />
           }
         ></Route>
@@ -110,7 +110,6 @@ function App() {
               title={"Создание типа продукции"}
               onAddProductType={handleCreateProductType}
               onCloseForms={handleCloseForms}
-              selectedType={selectedProductType}
             />
           }
         ></Route>

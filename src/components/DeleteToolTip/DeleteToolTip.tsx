@@ -3,7 +3,7 @@ import { IProductType } from "../../types";
 
 interface DeleteToolTip {
   isDeleteToolTipOpened: boolean;
-  onCloseDeleteToolTip: MouseEventHandler;
+  onCloseDeleteToolTip: Function;
   selectedType: IProductType | null;
   onDeleteProductType: Function;
 }
@@ -14,12 +14,16 @@ function DeleteToolTip({
   selectedType,
   onDeleteProductType,
 }: DeleteToolTip) {
-
   function handleClickDelete(event: React.MouseEvent<HTMLElement>) {
     event.preventDefault();
     onDeleteProductType(selectedType);
   }
-  
+
+  function handleCloseToolTip(event: React.MouseEvent<HTMLElement>) {
+    event.preventDefault();
+    onCloseDeleteToolTip();
+  }
+
   return (
     <div
       className={`deletetooltip ${
@@ -38,7 +42,7 @@ function DeleteToolTip({
           </button>
           <button
             className="button-container__button button-container__button_cancel"
-            onClick={onCloseDeleteToolTip}
+            onClick={handleCloseToolTip}
             aria-label="Закрыть Окно"
           >
             Отмена

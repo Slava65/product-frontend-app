@@ -8,22 +8,20 @@ interface ICreateProductFormProps {
   title: string;
   onAddProductType: Function;
   onCloseForms: MouseEventHandler;
-  selectedType: IProductType | null;
 }
 
 function CreateProductForm({
   title,
   onAddProductType,
   onCloseForms,
-  selectedType,
 }: ICreateProductFormProps) {
   const {
     register,
     handleSubmit,
-    setValue,
-    watch,
     formState: { errors },
   } = useForm<IProductType>({
+    mode: "onChange",
+    reValidateMode: "onChange",
     defaultValues: {
       packsNumber: undefined,
       packageType: "компрессия",
@@ -49,18 +47,11 @@ function CreateProductForm({
   });
 
   function HandleAddProductForm(data: IProductType) {
-    onAddProductType(data);
+    onAddProductType({ ...data, packsNumber: Number(data.packsNumber) });
   }
   return (
     <form onSubmit={handleSubmit(HandleAddProductForm)}>
-      <ProductForm
-        title={title}
-        setValue={setValue}
-        isEdit={true}
-        selectedType={selectedType}
-        watch={watch}
-        errors={errors}
-      >
+      <ProductForm title={title} errors={errors} register={register}>
         <div className="button-container">
           <button
             className="button-container__button button-container__button_cancel"
