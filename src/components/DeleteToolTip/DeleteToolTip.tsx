@@ -27,7 +27,7 @@ function DeleteToolTip({
       }`}
     >
       <form className="deletetooltip__container">
-        <p>Удалить выбранный тип продукции?</p>
+        <p className="deletetooltip__text">Удалить выбранный тип продукции?</p>
         <div>
           <button
             className="button-container__button button-container__button_delete"
