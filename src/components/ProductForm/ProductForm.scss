@@ -62,7 +62,7 @@
 }
 
 .input-container__asterisk {
-  color: #C30000;
+  color: #c30000;
   font-size: 18px;
 }
 
@@ -85,4 +85,10 @@
   width: 24px;
   height: 24px;
   border-radius: 4px;
+}
+
+.input-container__error {
+  margin: 0 auto;
+  width: 300px;
+  @include base.fontstyle($weight: normal, $size: 10px, $fontcolor: #da1515);
 }

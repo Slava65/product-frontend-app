@@ -24,14 +24,20 @@ function ProductForm({
         <label htmlFor="packsNumber" className="input-container__name">
           Кол-во пачек <span className="input-container__asterisk">*</span>
         </label>
-        <input
-          type="number"
-          name="packsNumber"
-          className="input-container__field input-container__field_numberPacks"
-          onChange={(e) => setValue("packsNumber", Number(e.target.value))}
-        />
+        <div>
+          <input
+            type="number"
+            name="packsNumber"
+            className="input-container__field input-container__field_numberPacks"
+            onChange={(e) => setValue("packsNumber", Number(e.target.value))}
+          />
+          {errors.packsNumber && (
+            <p className="input-container__error">
+              {errors.packsNumber.message}
+            </p>
+          )}
+        </div>
       </div>
-      {errors.packsNumber && <p>{errors.packsNumber.message}</p>}
       <div className="input-container">
         <label htmlFor="packageType" className="input-container__name">
           Тип упаковки <span className="input-container__asterisk">*</span>
@@ -63,13 +69,15 @@ function ProductForm({
         >
           Описание
         </label>
-        <textarea
-          name="description"
-          onChange={(e) => setValue("description", e.target.value)}
-          className="input-container__field input-container__field_description"
-        ></textarea>
+        <div>
+          <textarea
+            name="description"
+            onChange={(e) => setValue("description", e.target.value)}
+            className="input-container__field input-container__field_description"
+          ></textarea>
+          {errors.description && <p className="input-container__error">{errors.description.message}</p>}
+        </div>
       </div>
-      {errors.description && <p>{errors.description.message}</p>}
       {children}
     </div>
   );
