@@ -1,6 +1,9 @@
 # React + TypeScript + Vite
 
 Для запуска введите:
+
+npm i
+
 npm run dev
 
 Api:
