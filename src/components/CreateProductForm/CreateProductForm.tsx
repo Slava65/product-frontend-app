@@ -8,16 +8,24 @@ interface ICreateProductFormProps {
   title: string;
   onAddProductType: Function;
   onCloseForms: MouseEventHandler;
+  selectedType: IProductType | null;
 }
 
 function CreateProductForm({
   title,
   onAddProductType,
   onCloseForms,
+  selectedType,
 }: ICreateProductFormProps) {
-  const { register, handleSubmit, setValue } = useForm<IProductType>({
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm<IProductType>({
     defaultValues: {
-      packsNumber: 0,
+      packsNumber: undefined,
       packageType: "компрессия",
       isArchived: false,
       description: "",
@@ -25,19 +33,34 @@ function CreateProductForm({
   });
 
   useEffect(() => {
-    register("packsNumber", { required: true });
+    register("packsNumber", {
+      required: { value: true, message: "Обязательное поле" },
+      min: { value: 0, message: "Минимальное значение равно 0" },
+      max: { value: 1000000, message: "Максимальное значение равно 1000000" },
+    });
     register("packageType");
     register("isArchived");
-    register("description", { required: true });
+    register("description", {
+      maxLength: {
+        value: 300,
+        message: "Превышена длина поля, максимальное значение 300 символов",
+      },
+    });
   });
 
   function HandleAddProductForm(data: IProductType) {
-    
     onAddProductType(data);
   }
   return (
     <form onSubmit={handleSubmit(HandleAddProductForm)}>
-      <ProductForm title={title} setValue={setValue}>
+      <ProductForm
+        title={title}
+        setValue={setValue}
+        isEdit={true}
+        selectedType={selectedType}
+        watch={watch}
+        errors={errors}
+      >
         <div className="button-container">
           <button
             className="button-container__button button-container__button_cancel"

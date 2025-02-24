@@ -1,13 +1,22 @@
+import { IProductType } from "../../types";
+import { FieldErrors } from "react-hook-form";
 interface IProductFormProps {
   title: string;
   setValue: Function;
+  isEdit: boolean;
+  selectedType: IProductType | null;
+  watch: Function;
+  errors: FieldErrors<IProductType>;
 }
 function ProductForm({
   children,
   title,
   setValue,
+  isEdit,
+  selectedType,
+  watch,
+  errors,
 }: React.PropsWithChildren<IProductFormProps>) {
-  
   return (
     <div className="edit-form">
       <h2 className="form-title">{title}</h2>
@@ -16,19 +25,18 @@ function ProductForm({
           Кол-во пачек <span className="input-container__asterisk">*</span>
         </label>
         <input
-          id="packsNumber"
+          type="number"
           name="packsNumber"
           className="input-container__field input-container__field_numberPacks"
-          
           onChange={(e) => setValue("packsNumber", Number(e.target.value))}
         />
       </div>
+      {errors.packsNumber && <p>{errors.packsNumber.message}</p>}
       <div className="input-container">
         <label htmlFor="packageType" className="input-container__name">
           Тип упаковки <span className="input-container__asterisk">*</span>
         </label>
         <select
-          id="packageType"
           name="packageType"
           onChange={(e) => setValue("packageType", e.target.value)}
           className="input-container__field"
@@ -42,7 +50,6 @@ function ProductForm({
           Архивировано
         </label>
         <input
-          id="isArchived"
           name="isArchived"
           type="checkbox"
           onChange={(e) => setValue("isArchived", e.target.checked)}
@@ -57,12 +64,12 @@ function ProductForm({
           Описание
         </label>
         <textarea
-          id="description"
           name="description"
           onChange={(e) => setValue("description", e.target.value)}
           className="input-container__field input-container__field_description"
         ></textarea>
       </div>
+      {errors.description && <p>{errors.description.message}</p>}
       {children}
     </div>
   );

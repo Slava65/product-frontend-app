@@ -42,7 +42,6 @@ function App() {
   }
 
   function handleEditProductType(type: IProductType) {
-    console.log(type);
     api
       .editProductType(type)
       .then((res) => {
@@ -111,6 +110,7 @@ function App() {
               title={"Создание типа продукции"}
               onAddProductType={handleCreateProductType}
               onCloseForms={handleCloseForms}
+              selectedType={selectedProductType}
             />
           }
         ></Route>

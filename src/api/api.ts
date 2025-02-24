@@ -9,7 +9,7 @@ class Api {
 
   _handleResult = (res: AxiosResponse) => {
     if (res.status !== 200) {
-      return Promise.reject(`Error: ${res.status}`);
+      return Promise.reject(res);
     }
     return res;
   };
